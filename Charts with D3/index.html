@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3.js Visualizations</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        
+        .line { fill:purple; stroke: steelblue; stroke-width: 2; }
+        .arc { fill: orange; }
+        .dot { fill: yellow; stroke: #333; }
+        .dot:hover { fill: darkorange; }
+        .axis-label { font-size: 14px; font-weight: bold; fill: #333; }
+        .chart-labels text { font-size: 12px; word-wrap: break-word; text-overflow: ellipsis; }
+    
+        
+        .menu {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #fff; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+            height: 100vh;
+        }
+    
+        
+        .charts {
+            margin-left: 10px;
+        }
+        #chart1Pie {
+            flex: 1; 
+        }
+
+        #chart1Legend {
+            width: 300px; 
+            overflow-y: auto; 
+        }
+        #chartTitle {
+            font-size: 1.75rem; 
+            color: #333;
+            font-weight: bold; 
+            margin-top: 30px; 
+            margin-bottom: 20px; 
+        }
+
+        h2 {
+            color: #333;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #ddd; 
+            padding-bottom: 10px; 
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem; 
+            font-weight: bold; 
+            color: #333; 
+            margin-top: 20px; 
+            margin-bottom: 20px; 
+        }
+
+        .menu .list-group-item:hover {
+            background-color: #f1f1f1; 
+            color: #007bff; 
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex">
+        <!-- Menu Section (Sticky) -->
+        <div class="menu col-3 p-3">
+            <h4 style="text-align: center;">Menu</h4>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="#chart1" class="nav-link">Chart 1</a></li>
+                <li class="list-group-item"><a href="#chart2nav" class="nav-link">Chart 2</a></li>
+                <li class="list-group-item"><a href="#chart3nav" class="nav-link">Chart 3</a></li>
+                <li class="list-group-item"><a href="#chart4nav" class="nav-link">Chart 4</a></li>
+                <li class="list-group-item"><a href="#chart5" class="nav-link">Chart 5</a></li>
+                <li class="list-group-item"><a href="#chart6" class="nav-link">Chart 6</a></li>
+                <li class="list-group-item"><a href="#chart7" class="nav-link">Chart 7</a></li>
+                <li class="list-group-item"><a href="#chart8Pie" class="nav-link">Chart 8</a></li>
+                <li class="list-group-item"><a href="#chart9" class="nav-link">Chart 9</a></li>
+            </ul>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts col-9 p-3">
+            <h1>Group 11 Project 2</h1><br>
+            <h2 id="chart1">Chart1: The proportion of the top 100 YouTube channels in each category.</h2>
+            <p>
+                We decided to represent the proportion of the top 100 YouTube channels in each category with a pie chart because 
+                it effectively showcases the relative sizes of different categories as parts of a whole. Pie charts provide a clear 
+                visual representation of how each category compares to others in terms of its share, making it easy for viewers to grasp 
+                the distribution at a glance.
+            </p>
+            <div class="d-flex flex-column-reverse flex-lg-row-reverse"> 
+                <div id="chart1Pie" class="flex-fill justify-content-center" style="margin-top:-150px;">
+                    <svg></svg>
+                </div>
+                <div id="chart1Legend" style="margin-top: 20px; width: 300px; margin-bottom: -150px;"> 
+                </div>
+            </div>
+
+            <h2 id="chart2nav">Chart2: Relationship between the ‘likes’ and ‘subscribers’</h2>
+            <p>
+                A scatter plot chart effectively visualizes the correlation between 'likes' and 
+                'subscribers,' displaying the distribution of data points clearly. It helps identify 
+                patterns, trends, or outliers, making it easier to understand how the number of likes varies 
+                with the number of subscribers across different YouTube channels.
+            </p>
+            <div id="chart2"style="margin-top:-150px;">
+                <svg></svg>
+            </div>
+
+            <h2 id="chart3nav">Chart 3: Each country's number of Youtubers</h2>
+            <p>
+                We decided to represent the number of YouTubers in each country with a bar graph because it effectively compares the quantity of YouTubers 
+                across different countries. Bar graphs allow for easy visualization of the data, highlighting differences in the number of creators by country. 
+                The vertical bar provides a clear, straightforward way to compare the values, making it simple to identify which countries have the most or least YouTubers.
+            </p>
+			<div id="chart3"></div>
+
+			<h2 id="chart4nav">Chart 4: The top 5 YouTube channels' average view changes every year</h2>
+            <p>
+                Chart 4 uses a line chart to represent the average yearly view changes for the top 5 YouTube channels, effectively showing trends over time. Line charts are 
+                ideal for visualizing how values change across a continuous range, such as years, making it easier to track increases, decreases, or consistent patterns in viewership. 
+                This format provides a clear representation of the channels' performance dynamics over multiple years.
+            </p>
+			<div id="chart4"></div>
+
+            <h2>Chart 5: The top 5 YouTube channels’ Quarterly income.</h2>
+            <p>
+                We decided to represent the top 5 YouTube channels’ quarterly income with a grouped bar chart because it allows for an easy comparison of income across multiple 
+                categories (quarters) for each channel. Grouped bar charts display data in distinct clusters, making it straightforward to observe differences in income trends 
+                among the channels and across different quarters within the same visualization. This format provides a clear and organized way to analyze variations in earnings over time.
+            </p>
+            <div id="chart5" style="margin-top:-150px;">
+                <svg></svg>
+            </div>
+
+            <h2>Chart6: The number of YouTube channels by category</h2>
+            <p>
+                Chart 6 displays the number of YouTube channels by category interactively based on the selected country, with 'IN' (India) as the default. The chart title updates dynamically 
+                to reflect the chosen country, ensuring clarity. For mobile users, a dropdown menu or autocomplete search box provides a compact and user-friendly way to input the country.
+            </p>
+            <h4 id="chartTitle" style="text-align: center">Number of YouTube Channels</h4>
+            <div id="inputContainer"></div>
+            <br>
+            <div class="d-inline-flex flex-column flex-lg-row-reverse">
+                <div id="chart6Legend" class="flex-fill"></div> 
+                <div id="chart6" class="flex-fill" style="width: auto;"></div> 
+            </div>
+            
+            <h2>Chart7: The category that has most followers</h2>
+            <p>
+                A donut chart effectively highlights the category with the most followers by showcasing proportions in a visually appealing way. It allows for easy comparison 
+                between categories while emphasizing the dominant one.
+            </p>
+            <div id="chart7" style="margin-top:-130px; margin-bottom: -50px;">
+                <svg></svg>
+            </div>
+
+            <h2>Chart8: The country that has the most youtubers in the top 100 list.</h2>
+            <p>
+                Chart 8 uses a pie chart to represent the country with the most YouTubers in the top 100 list, making it easy to compare the proportions of YouTubers from different 
+                countries. The circular layout highlights the dominant country while providing a clear visual breakdown of the distribution among others.
+            </p>
+            <div class="d-flex flex-column-reverse flex-lg-row-reverse" style="margin-bottom: -50px;"> 
+                <div id="chart8Pie" class="flex-fill justify-content-center" style="margin-top:-90px;">
+                    <svg></svg>
+                </div>
+                <div id="chart8Legend" style="margin-top: 20px; width: 300px; margin-bottom: -150px;"> 
+                </div>
+            </div>
+
+            <h2>Chart9: The name of the channel with the most subscribers</h2>
+            <p>
+                A horizontal bar graph with a scrollable view is ideal for displaying data when there are many categories or items to compare. This format allows for easy readability of 
+                category names, especially when they are lengthy, and provides a clear visual representation of the data. The scrollable feature ensures that all categories can be included 
+                without overcrowding the chart, making it user-friendly and space-efficient.
+            </p>
+            <div id="chart9" style="margin-top:-130px;">
+                <svg></svg>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="charts.js/chart1Remake.js"></script> 
+    <script src="charts.js/chart2.js"></script>
+    <script src="charts.js/chart3.js"></script>
+    <script src="charts.js/chart4.js"></script>
+    <script src="charts.js/chart5.js"></script> 
+    <script src="charts.js/chart6.js"></script>
+    <script src="charts.js/chart7.js"></script>
+    <script src="charts.js/chart8.js"></script> 
+    <script src="charts.js/chart9.js"></script>
+</body>
+</html>
